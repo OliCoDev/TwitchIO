@@ -724,7 +724,7 @@ class HypeTrainBeginProgressData(EventData):
     total_points: :class:`int`
         The total amounts of points in the Hype Train
     level: :class:`int`
-        The current level of the Hype Train. Returns None if there's no level
+        The current level of the Hype Train
     progress: :class:`int`
         The progress of the Hype Train towards the next level
     goal: :class:`int`
@@ -754,10 +754,7 @@ class HypeTrainBeginProgressData(EventData):
     def __init__(self, client: EventSubClient, data: dict):
         self.broadcaster = _transform_user(client, data, "broadcaster_user")
         self.total_points: int = data["total"]
-        if "level" in data:
-            self.level: int = data["level"]
-        else:
-            self.level: int = None
+        self.level: int = data.get("level", 0)
         self.progress: int = data["progress"]
         self.goal: int = data["goal"]
         self.started = _parse_datetime(data["started_at"])
